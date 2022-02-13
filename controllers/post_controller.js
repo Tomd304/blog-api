@@ -1,5 +1,6 @@
 let Post = require("../models/post");
 let Comment = require("../models/comment");
+let async = require("async");
 
 exports.get_all_posts = (req, res, next) => {
   Post.find({ published: true })
@@ -17,7 +18,7 @@ exports.get_post_by_id = (req, res, next) => {
     });
 };
 
-exports.create_new_post = (req, res, next) => {
+exports.create_post = (req, res, next) => {
   Post.create({
     title: req.body.title,
     content: req.body.content,
@@ -26,13 +27,23 @@ exports.create_new_post = (req, res, next) => {
   res.json({ message: "Post created" });
 };
 
-exports.update_post = (req, res, next) => {
+exports.create_comment = async (req, res, next) => {
+  const newComment = await Comment.create({
+    content: req.body.comment,
+  });
+
   Post.findOneAndUpdate(
-    { _id: "6209823823a0134b7bda489c" },
-    req.body,
+    { _id: req.params.id },
+    { $push: { comments: newComment._id } },
     {},
     (err, post) => {
-      res.json({ updateBody: req.body, message: "update complete" });
+      res.json({ message: "comment created" });
     }
   );
+};
+
+exports.update_post = (req, res, next) => {
+  Post.findOneAndUpdate({ _id: req.params.id }, req.body, {}, (err, post) => {
+    res.json({ Message: "Post Updated" });
+  });
 };
