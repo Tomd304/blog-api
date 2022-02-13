@@ -6,6 +6,7 @@ let PostSchema = new Schema(
     title: { type: String, required: true },
     content: { type: String, required: true },
     published: { type: Boolean, required: true },
+    comments: [{ type: Schema.Types.ObjectId, ref: "comment" }],
   },
   { timestamps: true }
 );
