@@ -5,8 +5,9 @@ var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 var mongoose = require("mongoose");
 require("dotenv").config();
-
+var bodyParser = require("body-parser");
 var indexRouter = require("./routes/index");
+var postRouter = require("./routes/post");
 
 mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
@@ -26,8 +27,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
+app.use(bodyParser.json());
 
 app.use("/", indexRouter);
+app.use("/post", postRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
