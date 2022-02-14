@@ -17,7 +17,7 @@ router.post("/login", async (req, res, next) => {
   );
   if (passwordCorrect) {
     jwt.sign({ user }, "secretkey", (err, token) => {
-      res.header("auth-token", token).send(token);
+      res.json(token);
     });
   } else {
     return res.status(500).send("Password incorrect");
