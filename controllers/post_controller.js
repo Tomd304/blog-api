@@ -19,6 +19,7 @@ exports.get_post_by_id = (req, res, next) => {
 };
 
 exports.create_post = (req, res, next) => {
+  console.log("creating post");
   Post.create({
     title: req.body.title,
     content: req.body.content,
