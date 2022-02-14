@@ -8,6 +8,7 @@ require("dotenv").config();
 var bodyParser = require("body-parser");
 var indexRouter = require("./routes/index");
 var postRouter = require("./routes/post");
+var cors = require("cors");
 
 mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
@@ -22,6 +23,7 @@ var app = express();
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "pug");
 
+app.use(cors());
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
