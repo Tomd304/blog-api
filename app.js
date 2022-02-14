@@ -9,7 +9,6 @@ var bodyParser = require("body-parser");
 var indexRouter = require("./routes/index");
 var postRouter = require("./routes/post");
 var authRouter = require("./routes/auth");
-const jwt = require("jsonwebtoken");
 var cors = require("cors");
 
 mongoose.connect(process.env.MONGODB_URI, {
